@@ -1,17 +1,9 @@
 import { v1 as uuid } from "uuid";
-import { combineReducers, createStore } from "redux";
-
-export interface Todo {
-  id: string;
-  desc: string;
-  isComplete: boolean;
-}
-
-export interface State {
-  todos: Todo[];
-  selectedTodo: string | null;
-  counter: number;
-}
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Todo } from "./type";
 
 // Constants
 
@@ -164,7 +156,9 @@ const todoReducer = (state: Todo[] = initialState, action: TodoActionTypes) => {
     case TOGGLE_TODO: {
       const { payload } = action;
       return state.map((todo) =>
-        todo.id === payload.id ? { ...todo, isComplete: todo.isComplete } : todo
+        todo.id === payload.id
+          ? { ...todo, isComplete: payload.isComplete }
+          : todo
       );
     }
 
@@ -227,4 +221,7 @@ export const reducers = combineReducers({
   counter: counterReducer,
 });
 
-export default createStore(reducers);
+export default createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk, logger))
+);
