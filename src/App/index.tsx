@@ -3,7 +3,7 @@ import React, {
   FormEvent,
   useEffect,
   useRef,
-  useState
+  useState,
 } from "react";
 import { v1 as uuid } from "uuid";
 import { Todo } from "../type";
@@ -13,18 +13,18 @@ const todos: Todo[] = [
   {
     id: uuid(),
     desc: "Learn React",
-    isComplete: true
+    isComplete: true,
   },
   {
     id: uuid(),
     desc: "Learn Redux",
-    isComplete: true
+    isComplete: true,
   },
   {
     id: uuid(),
     desc: "Learn Redux-ToolKit",
-    isComplete: false
-  }
+    isComplete: false,
+  },
 ];
 
 const selectedTodoId = todos[1].id;
@@ -37,7 +37,8 @@ const App = function() {
   const editInput = useRef<HTMLInputElement>(null);
 
   const selectedTodo =
-    (selectedTodoId && todos.find(todo => todo.id === selectedTodoId)) || null;
+    (selectedTodoId && todos.find((todo) => todo.id === selectedTodoId)) ||
+    null;
 
   const handleNewInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewTodoInput(e.target.value);
