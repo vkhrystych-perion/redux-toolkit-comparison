@@ -8,11 +8,12 @@ import React, {
 import { useSelector, useDispatch } from "react-redux";
 import {
   createTodoActionCreator,
-  deleteTodoActionCreator,
+  removeTodoActionCreator,
   editTodoActionCreator,
   selectTodoActionCreator,
   toggleTodoActionCreator,
-} from "../redux-og";
+} from "../redux-toolkit";
+
 import { State } from "../type";
 import "./App.css";
 
@@ -111,7 +112,7 @@ const App = function() {
   const handleDelete = (): void => {
     if (!selectedTodoId) return;
 
-    dispatch(deleteTodoActionCreator({ id: selectedTodoId }));
+    dispatch(removeTodoActionCreator({ id: selectedTodoId }));
   };
 
   return (
